@@ -17,7 +17,7 @@ public class LongestCommonPrefix {
 			a_temp = it_a.next();
 			b_temp = it_b.next();
 			if(cmp.compare(a_temp, b_temp) == 0){
-			prefix.add(a_temp);
+				prefix.add(a_temp);
 			}
 		}
 		return prefix;
