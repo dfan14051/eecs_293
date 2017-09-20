@@ -7,29 +7,35 @@ import java.util.Optional;
 public final class Token {
 
 	public enum Type {
-		NOT("not", false),
-		AND("and", false),
-		OR("or", false),
-		OPEN("(", false),
-		CLOSE(")", false),
-		ID("[a-z]+", true),
-		NUMBER("	-?\\d+", true),
-		BINARYOP("\\+|-|\\*|\\/", true),
-		WHITESPACE("\\s+", false);
+		NOT("not", false, false),
+		AND("and", false, true),
+		OR("or", false, true),
+		OPEN("\\(", false, false),
+		CLOSE("\\)", false, false),
+		ID("[a-z]+", true, false),
+		NUMBER("-?\\d+", true, false),
+		BINARYOP("\\+|-|\\*|\\/", true, false),
+		WHITESPACE("\\s+", false, false);
 		
 		private final String pattern;
 		public String getPattern() {
 			return pattern;
 		}
 		
-		private final Boolean hasData;
-		public Boolean getHasData() {
+		private final boolean hasData;
+		public boolean getHasData() {
 			return hasData;
 		}
 		
-		Type(String pattern, Boolean hasData){
+		private boolean isComplex;
+		public boolean getIsComplex() {
+			return isComplex;
+		}
+		
+		Type(String pattern, boolean hasData, boolean isComplex){
 			this.pattern = pattern;
 			this.hasData = hasData;
+			this.isComplex = isComplex;
 		}
 	}
 	
@@ -42,29 +48,42 @@ public final class Token {
 	public Optional<String> getData() {
 		return data;
 	}
-	
-	public boolean equals(Object token) {
-		if(this == token) {
-			return true;
-		}
-		if(!(token instanceof Token)) {
-			return false;
-		}
-		Token temp = (Token) token;
-		return (temp.getType() == this.getType()) && (temp.getData().equals(this.getData()));
-	}
-	
+
+
+	@Override
 	public int hashCode() {
-		return this.getType().hashCode() + this.getData().hashCode();
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((data == null) ? 0 : data.hashCode());
+		result = prime * result + ((type == null) ? 0 : type.hashCode());
+		return result;
 	}
-	
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Token other = (Token) obj;
+		if (data == null) {
+			if (other.data != null)
+				return false;
+		} else if (!data.equals(other.data))
+			return false;
+		if (type != other.type)
+			return false;
+		return true;
+	}
+
+	@Override
 	public String toString() {
-		if(this.getType().getHasData()) {
-			return this.getData().get();
-		}
-		return this.getType().name();
+		return "Token [type=" + type + ", data=" + data + "]";
 	}
-	
+
+
 	private Token(Type type, Optional<String> data) {
 		this.type = type;
 		this.data = data;
@@ -81,20 +100,33 @@ public final class Token {
 		private Token build() {
 			return new Token(this.type, this.data);
 		}
-		
-		public boolean equals(Object builder) {
-			if(this == builder) {
-				return true;
-			}
-			if(!(builder instanceof Builder)) {
-				return false;
-			}
-			Builder temp = (Builder) builder;
-			return (temp.type == this.type) && (temp.data.equals(this.data));
-		}
-		
+
+		@Override
 		public int hashCode() {
-			return this.type.hashCode() + this.data.hashCode();
+			final int prime = 31;
+			int result = 1;
+			result = prime * result + ((data == null) ? 0 : data.hashCode());
+			result = prime * result + ((type == null) ? 0 : type.hashCode());
+			return result;
+		}
+
+		@Override
+		public boolean equals(Object obj) {
+			if (this == obj)
+				return true;
+			if (obj == null)
+				return false;
+			if (getClass() != obj.getClass())
+				return false;
+			Builder other = (Builder) obj;
+			if (data == null) {
+				if (other.data != null)
+					return false;
+			} else if (!data.equals(other.data))
+				return false;
+			if (type != other.type)
+				return false;
+			return true;
 		}
 		
 	}

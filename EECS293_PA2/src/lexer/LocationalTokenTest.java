@@ -7,7 +7,7 @@ import org.junit.Test;
 public class LocationalTokenTest {
 
 	@Test
-	public void test() {
+	public void andTokenTest() {
 		Token and = Token.of(Token.Type.AND, null);
 		LocationalToken locationalAnd = new LocationalToken(and, 12);
 		assertEquals(false, locationalAnd.getData().isPresent());
