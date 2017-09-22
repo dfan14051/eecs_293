@@ -9,7 +9,6 @@ import java.util.regex.Pattern;
 
 public class Lexer {
 	private static Pattern tokenPatterns = setTokenPattern();
-	// Was accidentally left public in submission
 	private final Matcher matcher;
 	
 	public Lexer(String input) {
@@ -51,6 +50,7 @@ public class Lexer {
 			joinStrings.add(String.format("(?<%s>%s)", type.name(), type.getPattern()));
 		}
 		String expression = String.join("|", joinStrings);
+		System.out.println(expression);
 		return Pattern.compile(expression);
 	}
 }
