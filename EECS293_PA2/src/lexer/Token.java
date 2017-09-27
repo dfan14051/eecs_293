@@ -7,15 +7,21 @@ import java.util.Optional;
 public final class Token {
 
 	public enum Type {
-		NOT("not", false, false),
-		AND("and", false, true),
-		OR("or", false, true),
-		OPEN("\\(", false, false),
-		CLOSE("\\)", false, false),
-		ID("[a-z]+", true, false),
-		NUMBER("-?\\d+", true, false),
-		BINARYOP("\\+|-|\\*|\\/", true, false),
-		WHITESPACE("\\s+", false, false);
+		NOT("not", false, false, emptyOptional()),
+		AND("and", false, true, Optional.of(ParserException.ErrorCode.AND_EXPECTED)),
+		OR("or", false, true, emptyOptional()),
+		OPEN("\\(", false, false, Optional.of(ParserException.ErrorCode.OPEN_EXPECTED)),
+		CLOSE("\\)", false, false, Optional.of(ParserException.ErrorCode.CLOSE_EXPECTED)),
+		ID("[a-z]+", true, false, Optional.of(ParserException.ErrorCode.ID_EXPECTED)),
+		NUMBER("-?\\d+", true, false, emptyOptional()),
+		BINARYOP("\\+|-|\\*|\\/", true, false, emptyOptional()),
+		WHITESPACE("\\s+", false, false, emptyOptional());
+		
+		private static final Optional<ParserException.ErrorCode> emptyOptional(){
+			Optional<ParserException.ErrorCode> empty = Optional.empty();
+			return empty;
+		}
+		
 		
 		private final String pattern;
 		public String getPattern() {
@@ -32,10 +38,16 @@ public final class Token {
 			return isComplex;
 		}
 		
-		Type(String pattern, boolean hasData, boolean isComplex){
+		private Optional<ParserException.ErrorCode> errorCode;
+		public Optional<ParserException.ErrorCode> getErrorCode() {
+			return errorCode;
+		}
+		
+		Type(String pattern, boolean hasData, boolean isComplex, Optional<ParserException.ErrorCode> errorCode){
 			this.pattern = pattern;
 			this.hasData = hasData;
 			this.isComplex = isComplex;
+			this.errorCode = errorCode;
 		}
 	}
 	

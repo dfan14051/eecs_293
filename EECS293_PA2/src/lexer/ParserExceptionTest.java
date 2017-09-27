@@ -31,5 +31,17 @@ public class ParserExceptionTest {
 			assertThat(e.getErrorCode(), CoreMatchers.is(ParserException.ErrorCode.TRAILING_INPUT));
 		}
 	}
+	
+	@Test
+	public void verifyTypeTest() {
+		Token token = Token.of(Token.Type.OR, null);
+		LocationalToken locationalToken = new LocationalToken(token, 0);
+		try {
+			ParserException.verify(Token.Type.AND, locationalToken);
+			fail("Expected a ParserException to be thrown.");
+		} catch (ParserException e) {
+			assertThat(e.getErrorCode(), CoreMatchers.is(ParserException.ErrorCode.AND_EXPECTED));
+		}
+	}
 
 }

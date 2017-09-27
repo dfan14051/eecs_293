@@ -8,7 +8,11 @@ public final class ParserException extends Exception {
 	public enum ErrorCode {
 		TOKEN_EXPECTED,
 		INVALID_TOKEN,
-		TRAILING_INPUT
+		TRAILING_INPUT,
+		AND_EXPECTED,
+		OPEN_EXPECTED,
+		CLOSE_EXPECTED,
+		ID_EXPECTED
 	}
 	
 	private final ErrorCode errorCode;
@@ -48,4 +52,9 @@ public final class ParserException extends Exception {
 		}
 	}
 	
+	public final static void verify(Token.Type expectedType, LocationalToken token) throws ParserException{
+		if(!token.getType().equals(expectedType)) {
+			throw new ParserException(expectedType.getErrorCode().get());
+		}
+	}
 }
