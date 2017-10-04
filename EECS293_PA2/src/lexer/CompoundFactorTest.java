@@ -13,7 +13,6 @@ public class CompoundFactorTest {
 		DisjunctiveLexer lexer = new DisjunctiveLexer("(a and b) and not c)");
 		try {
 			CompoundFactor compoundFactor = CompoundFactor.Builder.build(locationalToken, lexer);
-			System.out.print(compoundFactor.toString());
 		} catch (ParserException e) {
 			fail(e.getMessage());
 		}

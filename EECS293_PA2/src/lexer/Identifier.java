@@ -13,17 +13,18 @@ public final class Identifier implements Factor{
 	public static final class Builder{
 
 		public static final Identifier build(LocationalToken token) throws ParserException{
-			if(token.getType() == Token.Type.ID) {
-				return new Identifier(token.getData().get());
-			}
-			else
-				throw new ParserException(ParserException.ErrorCode.ID_EXPECTED);
+			ParserException.verify(Token.Type.ID, token);
+			return new Identifier(token.getData().get());
 		}
 
 	}
 	
 	@Override
 	public String toString() {
-		return "Identifier [id=" + id + "]";
+		return id;
+	}
+
+	public ConjunctiveRepresentation conjunctiveRepresentation() {
+		return new ConjunctiveRepresentation(id, false);
 	}
 }

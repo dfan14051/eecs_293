@@ -22,26 +22,35 @@ public class CompoundFactor implements Factor{
 	
 		public static final CompoundFactor build(LocationalToken token, DisjunctiveLexer lexer) throws ParserException{
 			ParserException.verify(Token.Type.OPEN, token);
-			Optional<LocationalToken> nextToken = lexer.nextValid();
-			ParserException.verify(nextToken);
-			DisjunctiveExpression leftExpression = DisjunctiveExpression.Builder.build(nextToken.get(), lexer);
-			nextToken = lexer.nextValid();
-			ParserException.verify(nextToken);
+			DisjunctiveExpression leftExpression = buildExpression(lexer);
+			Optional<LocationalToken> nextToken = buildToken(lexer);
 			ParserException.verify(Token.Type.AND, nextToken.get());
-			nextToken = lexer.nextValid();
-			ParserException.verify(nextToken);
-			DisjunctiveExpression rightExpression = DisjunctiveExpression.Builder.build(nextToken.get(), lexer);
-			nextToken = lexer.nextValid();
-			ParserException.verify(nextToken);
+			DisjunctiveExpression rightExpression = buildExpression(lexer);
+			nextToken = buildToken(lexer);
 			ParserException.verify(Token.Type.CLOSE, nextToken.get());
 			return new CompoundFactor(leftExpression, rightExpression);
 		}
+		
+		private static DisjunctiveExpression buildExpression(DisjunctiveLexer lexer) throws ParserException {
+			Optional<LocationalToken> nextToken = buildToken(lexer);
+			return DisjunctiveExpression.Builder.build(nextToken.get(), lexer);
+		}
+		
+		private static Optional<LocationalToken> buildToken(DisjunctiveLexer lexer) throws ParserException{
+			Optional<LocationalToken> Token = lexer.nextValid();
+			ParserException.verify(Token);
+			return Token;
+		}
 	
+	}
+	
+	public ConjunctiveRepresentation conjunctiveRepresentation() {
+		return new ConjunctiveRepresentation("(not " + leftExpression + " or not " + rightExpression + ")", true);
 	}
 
 	@Override
 	public String toString() {
-		return "CompoundFactor [leftExpression=" + leftExpression + ", rightExpression=" + rightExpression + "]";
+		return "(" + leftExpression + "and " + rightExpression + ")";
 	}
 	
 	
