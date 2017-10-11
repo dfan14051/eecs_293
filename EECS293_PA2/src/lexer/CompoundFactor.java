@@ -37,20 +37,20 @@ public class CompoundFactor implements Factor{
 		}
 		
 		private static Optional<LocationalToken> buildToken(DisjunctiveLexer lexer) throws ParserException{
-			Optional<LocationalToken> Token = lexer.nextValid();
-			ParserException.verify(Token);
-			return Token;
+			Optional<LocationalToken> token = lexer.nextValid();
+			ParserException.verify(token);
+			return token;
 		}
 	
 	}
 	
 	public ConjunctiveRepresentation conjunctiveRepresentation() {
-		return new ConjunctiveRepresentation("(not " + leftExpression + " or not " + rightExpression + ")", true);
+		return new ConjunctiveRepresentation("(not " + leftExpression.conjunctiveRepresentation() + " or not " + rightExpression.conjunctiveRepresentation() + ")", true);
 	}
 
 	@Override
 	public String toString() {
-		return "(" + leftExpression + "and " + rightExpression + ")";
+		return "(" + leftExpression + " and " + rightExpression + ")";
 	}
 	
 	

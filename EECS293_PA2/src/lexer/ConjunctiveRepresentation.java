@@ -1,6 +1,6 @@
 package lexer;
 
-public final class ConjunctiveRepresentation {
+final class ConjunctiveRepresentation {
 	private final String representation;
 	public final String getRepresentation() {
 		return representation;

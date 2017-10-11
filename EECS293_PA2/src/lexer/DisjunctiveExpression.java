@@ -49,10 +49,6 @@ public final class DisjunctiveExpression {
 		return new DisjunctiveExpression(this.getFactor(), !this.isPositive());
 	}
 	
-	private final boolean isPositiveRepresentation(boolean positive, ConjunctiveRepresentation conjunctiveRepresentation) {
-		return (positive && !conjunctiveRepresentation.isNegation()) || (!positive && conjunctiveRepresentation.isNegation());
-	}
-	
 	@Override
 	public String toString() {
 		if(positive) {
@@ -65,7 +61,7 @@ public final class DisjunctiveExpression {
 
 	public final String conjunctiveRepresentation() {
 		ConjunctiveRepresentation conjunctiveRepresentation = factor.conjunctiveRepresentation();
-		if(isPositiveRepresentation(positive, conjunctiveRepresentation)) {
+		if(conjunctiveRepresentation.isNegation() != positive) {
 			return conjunctiveRepresentation.getRepresentation();
 		}
 		else {
