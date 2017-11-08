@@ -24,10 +24,17 @@ public class Assignment {
 	public static class Dependency {
 //		enum type{ END-BEGIN, BEGIN-BEGIN, BEGIN-END, END-END }
 		enum Type {
-			ENDBEGIN,
-			BEGINBEGIN,
-			BEGINEND,
-			ENDEND
+			ENDBEGIN(0, 1),
+			BEGINBEGIN (0, 0),
+			BEGINEND(1, 0),
+			ENDEND(1, 1);
+			
+			int assignmentAdjustment;
+			int dependencyAdjustment;
+			Type(int assignmentAdjustment, int dependencyAdjustment) {
+				this.assignmentAdjustment = assignmentAdjustment;
+				this.dependencyAdjustment = dependencyAdjustment;
+			}
 		};
 		
 //		Assignment dependsOnAssignment
@@ -47,6 +54,9 @@ public class Assignment {
 			return type;
 		}
 		
+		/* (non-Javadoc)
+		 * @see java.lang.Object#hashCode
+		 */
 		@Override
 		public int hashCode() {
 			final int prime = 31;
@@ -56,6 +66,9 @@ public class Assignment {
 			return result;
 		}
 
+		/* (non-Javadoc)
+		 * @see java.lang.Object#equals(java.lang.Object)
+		 */
 		@Override
 		public boolean equals(Object obj) {
 			if (this == obj)
@@ -77,6 +90,9 @@ public class Assignment {
 
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#hashCode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -86,6 +102,9 @@ public class Assignment {
 		return result;
 	}
 
+	/* (non-Javadoc)
+	 * @see java.lang.Object#equals(java.lang.Object)
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
