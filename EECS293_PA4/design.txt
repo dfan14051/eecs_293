@@ -1,0 +1,9 @@
+Errors will be thrown as custom exceptions, defined for each case. I.e., an InvalidFormatException when trying to make a number out of a 3x3 array that doesn't contain an expected result.
+
+Thrown Exceptions should propagate upwards until they're passed through a static log() method from a central logger. This log method will write an output log file and the top level methods will determine how to handle the error individually (i.e., fail hard or return a default message). The logger will be modeled after the logger present in the debug assignment.
+
+Validation will occur at multiple levels depending on the expected inputs. At the file level validation should only ensure that the filepath is good and the file is readable. At the number parsing level, the validity of the input strings should be checked. Validation will be done by static methods of a central Validate class.
+
+Due to the multi-level validation nature of the architecture, there will also exist a multi-barricade architecture. As data is validated by each level that needs it, sub-levels will be able to assume that data it receives from a higher level has already been validated
+
+Initial input will be parsed in line by line as Strings. The lines validaties will be checked at a lower level to ensure that they're in the expected format. 
