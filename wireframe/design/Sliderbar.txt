@@ -1,0 +1,3 @@
+class Slider inherits from Bar
+  Slider(x, y, parent, width, height, verticalAlignment)
+    super(x, y, parent, width, height, verticalAlignment)

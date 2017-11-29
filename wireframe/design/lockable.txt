@@ -1,0 +1,6 @@
+interface Lockable
+  boolean locked
+
+  boolean isLocked()
+  toggleLock()
+  verifyNotLocked()

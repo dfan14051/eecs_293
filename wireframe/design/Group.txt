@@ -1,0 +1,58 @@
+class Group inherits from Component and implements lockable and annotatable
+  Component list components
+  Annotation annotation
+  boolean locked
+
+  Group(x, y, parent)
+    Super(x, y, parent)
+
+  add(Component component) throws LockedException
+    verifyNotLocked()
+    add component to components
+
+  remove(Component component)
+    verifyNotLocked()
+    remove component from components
+
+  move(x, y)
+    verifyNotLocked()
+    diff_x <-- x - width
+    diff_y <-- y - height
+    for each component in Components
+      component.transform(diff_x, diff_y)
+
+  delete()
+    for each component in Components
+      component.delete()
+    parent.remove(self)
+    destroy(self)
+
+  reOrder(Component, index)
+    verifyNotLocked()
+    move component to index in components
+
+  isLocked()
+    return locked
+
+  toggleLock()
+    locked <-- not locked
+
+  verifyNotLocked()
+    if isLocked()
+      throw LockedException
+
+  annotate(Annotation)
+    verifyNotLocked()
+    annotation <-- Annotation
+
+  resizeAnnotation(width, height)
+    verifyNotLocked()
+    annotation.resize(width, height)
+
+  toggleAnnotationDisplay()
+    verifyNotLocked()
+    annotation.toggleDisplay
+
+  alignAnnotation(alignment)
+    verifyNotLocked()
+    annotation.align(alignment)

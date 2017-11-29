@@ -1,0 +1,56 @@
+class Element inherits from Component and implements Lockable and Annotatable
+  Annotation annotation
+  boolean locked
+  int width
+  int height
+
+  Element(x, y, parent, width, height)
+    Super(x, y, parent)
+    width <-- width
+    height <-- height
+
+  delete()
+    verifyNotLocked()
+    parent.remove(self)
+    destroy(self)
+
+  move(x, y)
+    verifyNotLocked()
+    x <-- x
+    y <-- y
+
+  transform(x_transform, y_transform)
+    verifyNotLocked()
+    x <-- x + x_transform
+    y <-- y + y_transform
+
+  resize(width, height)
+    verifyNotLocked()
+    width <-- width
+    height <-- height
+
+  isLocked()
+    return locked
+
+  toggleLock()
+    locked <-- not locked
+
+  verifyNotLocked()
+    if isLocked()
+      throw LockedException
+
+  annotate(Annotation)
+    verifyNotLocked()
+    annotation <-- Annotation
+
+  resizeAnnotation(width, height)
+    verifyNotLocked()
+    annotation.resize(width, height)
+
+  toggleAnnotationDisplay()
+    verifyNotLocked()
+    annotation.toggleDisplay
+
+  alignAnnotation(alignment)
+    verifyNotLocked()
+    annotation.align(alignment)

@@ -1,0 +1,3 @@
+class Header implements Text
+  Header(x, y, parent, width, height, alignment)
+    super(x, y, parent, width, height, alignment)

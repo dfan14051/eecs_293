@@ -1,0 +1,5 @@
+class Combobox implements Box
+  String List choices
+  Combobox(x, y, parent, width, height, radius, choices)
+    super(x, y, parent, width, height, radius)
+    choices <-- choices

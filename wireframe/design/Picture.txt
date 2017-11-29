@@ -1,0 +1,6 @@
+class Picture inherits from Element
+  File image
+
+  Picture(x, y, parent, width, height)
+    super(x, y, parent, width, height)
+  

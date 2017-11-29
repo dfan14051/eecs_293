@@ -1,0 +1,25 @@
+class Annotation inherits Component
+  int width
+  int height
+  boolean displayed
+  Text.Alignment alignment
+
+  Annotation(x, y, parent, width, height)
+    Super(x, y, parent)
+    width <-- width
+    height <-- height
+    displayed <-- true
+    alignment <-- Text.Alignment.Left
+
+  resize(width, height)
+    width <-- width
+    height <-- height
+
+  boolean isDisplayed()
+    return displayed
+
+  boolean toggleDisplay()
+    displayed <-- not displayed
+
+  align(alignment)
+    alignment <-- alignment

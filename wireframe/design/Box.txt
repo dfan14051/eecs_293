@@ -1,0 +1,6 @@
+class Box inherits Element
+  double radius
+
+  Box(x, y, parent, width, height, radius)
+    super(x, y, parent, width, height)
+    radius <-- radius

@@ -1,0 +1,17 @@
+My design takes inspiration from the design of Swing.
+The Component class is the top level of the inheritance tree for the rest of the classes. It is the class that every other element in the wireframe will inherit from to allow for polymorphism in the Canvas and Group classes. The only things that the top level component class contains are an x and y field for position and a parent component.
+The Canvas class is intended to be the top level work space. For each unique wireframe, there should be one canvas instance that houses all of the wireframe components. The canvas class will inherit from component to allow it to be added as the parent of other components and contain a list of components, a width, and a height.
+Not shown on the diagram is an annotatable interface. Classes will implement this interface if they're able to be annotated. The interface will contain an annotation object and all the associated methods for displaying and resizing annotations.
+Also not shown is a lockable interface which will contain a boolean defining if the element is locked or not, along with the methods for locking and unlocking the method and to see if its locked. There is also a method that should be implemented to throw a LockedException if it's locked.
+Groups are implemented by inheriting from Component and implementing lockable and annotatable. They contain a list of components (the members of the group). The list is ordered so that the elements within the group can have their order rearranged. Groups will implement moving by comparing the new coordinates given to the method to the groups coordinates, then applying that transform to each of its members. Individual members of a group can still be moved around on their own, as that intuitively makes sense.
+Elements are implemented by inheriting from Component and implementing lockable and annotatable. This is the class that every wireframe element will inherit. The element contains a width and a height.
+Annotations inherit from Components. They contain a width, a height, a boolean displayed value, and an alignment value.
+Box elements are inherited from Element. The only novel thing they contain is a corner radius.
+A combobox inherits from box and contains a list of options.
+The Text class inherits from Element and will be inherited from by textbox, paragraph, header, and list. The Text class contains the alignment enum which defines the alignment of a Text object (and an annotation) as well as the method to change the alignment
+The Picture class inherits from Element. It contains a File which is the default display image.
+The bar class inherits from Element. It is the class that the different types of bars will inherit from. It contains a field verticalAlignment which describes if the bar is vertically aligned or horizontally aligned. It also mostly just exists for organizational purposes so that all different bar types will be identified by bar. The scroll bar, progress bar, and slider bar all implement from bar.
+Textbox, paragraph, and header all inherit from text. Textbox contains a String for the canned text. Paragraph and header contain nothing novel.
+
+Error handling is done by just passing up LockedExceptions when an operation is attempted on a locked component. These LockedExceptions should be handled during the construction of individual wireframes.
+Testing will be done by creating dummy wireframes and adding each class under test to it then manipulating the class under test.

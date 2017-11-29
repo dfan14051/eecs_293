@@ -1,0 +1,9 @@
+class Component
+  int x
+  int y
+  Component parent
+
+  Component(x, y, parent)
+    x <-- x
+    y <-- y
+    parent <-- parent

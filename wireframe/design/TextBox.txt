@@ -1,0 +1,5 @@
+class TextBox implements Text
+  String cannedText
+
+  TextBox(x, y, parent, width, height, alignment)
+    Super(x, y, parent, width, height, alignment)

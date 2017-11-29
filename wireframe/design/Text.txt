@@ -1,0 +1,10 @@
+class Text inherits from Element
+  enum Alignment {LEFT, CENTER, RIGHT}
+  Alignment alignment
+
+  Text(x, y, parent, width, height, text, alignment)
+    super(x, y, parent, width, height)
+    alignment <-- alignment
+
+  changeAlignment(alignment)
+    alignment <-- alignment

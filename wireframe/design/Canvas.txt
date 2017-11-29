@@ -1,0 +1,15 @@
+class Canvas inherits from Component
+  Component list components
+  int width
+  int height
+
+  Canvas(width, height, x, y)
+    Super(x, y, None)
+    height <-- height
+    width <-- width
+
+  add(Component component)
+    add component to components
+
+  remove(Component component)
+    remove component from components

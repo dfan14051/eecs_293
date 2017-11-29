@@ -1,0 +1,13 @@
+class Bar inherits from Elements
+  boolean verticalAlignment
+
+  Bar(x, y, parent, width, height)
+    super(x, y, parent, width, height)
+    verticalAlignment <-- true
+
+  Bar(x, y, parent, width, height, verticalAlignment)
+    super(x, y, parent, width, height)
+    verticalAlignment <-- verticalAlignment
+
+  flip()
+    verticalAlignment <-- not verticalAlignment

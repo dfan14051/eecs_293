@@ -1,0 +1,7 @@
+interface Annotatable
+  Annotation annotation
+
+  annotate(Annotation)
+  resizeAnnotation(int, int)
+  toggleAnnotationDisplay()
+  alignAnnotation(Text.Alignment)
